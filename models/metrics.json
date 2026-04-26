@@ -1,0 +1,22 @@
+{
+  "random_forest": 0.995,
+  "xgboost": 0.995,
+  "logistic_regression": 0.995,
+  "features": [
+    "attendance",
+    "midterm_marks",
+    "assignment_score",
+    "lab_performance",
+    "mathematics",
+    "programming",
+    "dbms",
+    "english",
+    "operating_systems"
+  ],
+  "classes": [
+    "Average",
+    "Excellent",
+    "Good",
+    "Weak"
+  ]
+}
