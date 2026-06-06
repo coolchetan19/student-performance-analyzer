@@ -2,7 +2,8 @@ import joblib
 import numpy as np
 import json
 
-MODELS_DIR = 'models/'
+from pathlib import Path
+MODELS_DIR = Path(__file__).resolve().parent.parent / 'models'
 
 FEATURES = ['attendance', 'midterm_marks', 'assignment_score', 'lab_performance',
             'mathematics', 'programming', 'dbms', 'english', 'operating_systems']
@@ -18,11 +19,11 @@ SUBJECT_LABELS = {
 
 
 def load_models():
-    rf = joblib.load(MODELS_DIR + 'random_forest.pkl')
-    xgb = joblib.load(MODELS_DIR + 'xgboost.pkl')
-    lr = joblib.load(MODELS_DIR + 'logistic_regression.pkl')
-    scaler = joblib.load(MODELS_DIR + 'scaler.pkl')
-    le = joblib.load(MODELS_DIR + 'label_encoder.pkl')
+    rf = joblib.load(MODELS_DIR / 'random_forest.pkl')
+    xgb = joblib.load(MODELS_DIR / 'xgboost.pkl')
+    lr = joblib.load(MODELS_DIR / 'logistic_regression.pkl')
+    scaler = joblib.load(MODELS_DIR / 'scaler.pkl')
+    le = joblib.load(MODELS_DIR / 'label_encoder.pkl')
     return rf, xgb, lr, scaler, le
 
 

@@ -276,9 +276,12 @@ with st.sidebar:
 
 
 # ── Load metrics ─────────────────────────────────────────────────────────────
+from pathlib import Path
+
 @st.cache_data
 def load_metrics():
-    with open('models/metrics.json') as f:
+    base_dir = Path(__file__).resolve().parent
+    with open(base_dir / 'models' / 'metrics.json') as f:
         return json.load(f)
 
 metrics = load_metrics()
