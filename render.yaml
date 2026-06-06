@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: student-performance-analyzer
+    env: python
+    buildCommand: "pip install -r requirements.txt && python data/generate_data.py && python models/train_models.py"
+    startCommand: "streamlit run app.py --server.port $PORT --server.address 0.0.0.0"
+    
