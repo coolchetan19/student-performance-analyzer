@@ -9,9 +9,15 @@ from xgboost import XGBClassifier
 import joblib
 import os
 import json
+from pathlib import Path
+
+# ── Base path: folder where this script lives ────────────
+BASE_DIR = Path(__file__).resolve().parent.parent  # goes up from models/ to project root
+DATA_DIR = BASE_DIR / 'data'
+MODELS_DIR = BASE_DIR / 'models'
 
 # Load data
-df = pd.read_csv('data/student_data.csv')
+df = pd.read_csv(DATA_DIR / 'student_data.csv')
 
 FEATURES = ['attendance', 'midterm_marks', 'assignment_score', 'lab_performance',
             'mathematics', 'programming', 'dbms', 'english', 'operating_systems']
@@ -56,12 +62,12 @@ print("\nRandom Forest Report:")
 print(classification_report(y_test, rf_pred, target_names=le.classes_))
 
 # ── Save models ─────────────────────────────────────────
-os.makedirs('models', exist_ok=True)
-joblib.dump(rf, 'models/random_forest.pkl')
-joblib.dump(xgb, 'models/xgboost.pkl')
-joblib.dump(lr, 'models/logistic_regression.pkl')
-joblib.dump(scaler, 'models/scaler.pkl')
-joblib.dump(le, 'models/label_encoder.pkl')
+MODELS_DIR.mkdir(parents=True, exist_ok=True)
+joblib.dump(rf,     MODELS_DIR / 'random_forest.pkl')
+joblib.dump(xgb,    MODELS_DIR / 'xgboost.pkl')
+joblib.dump(lr,     MODELS_DIR / 'logistic_regression.pkl')
+joblib.dump(scaler, MODELS_DIR / 'scaler.pkl')
+joblib.dump(le,     MODELS_DIR / 'label_encoder.pkl')
 
 # Save metrics
 metrics = {
@@ -71,7 +77,7 @@ metrics = {
     'features': FEATURES,
     'classes': list(le.classes_)
 }
-with open('models/metrics.json', 'w') as f:
+with open(MODELS_DIR / 'metrics.json', 'w') as f:
     json.dump(metrics, f, indent=2)
 
 print("\nAll models saved!")
